@@ -1,0 +1,86 @@
+﻿@model Lab14Set.Models.ModeloIntermedio
+@{
+    ViewBag.Title = "Lista de Telefonos";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Nombre
+        </th>
+        <th>
+            Apellido1
+        </th>
+        <th>
+            Telefonos
+        </th>
+
+        <th>
+            Cuentas
+        </th>
+    </tr>
+
+    @for (int i = 0; i < Model.listaCLIENTES.Count; i++)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem =>
+                Model.listaCLIENTES.ElementAt(i).NOMBRE)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem =>
+                Model.listaCLIENTES.ElementAt(i).APELLIDO1)
+            </td>
+
+
+            <td>
+                @for (int j = 0; j < Model.listaTelefonos.Count; j++)
+                {
+                    if (Model.listaCLIENTES.ElementAt(i).CEDULA.Equals(Model.listaTelefonos.ElementAt(j).CEDULAC))
+                    {
+                        @Html.DisplayFor(modelItem => Model.listaTelefonos.ElementAt(j).NUMERO)
+                        @Html.Raw(" ")
+                    }
+                }
+           </td>
+            <td>
+                @for (int j = 0; j < Model.listaCuentas.Count; j++)
+                {
+                    if (Model.listaCuentas.ElementAt(j).Cedula.Equals(Model.listaCuentas.ElementAt(j).Cedula))
+                    {
+                        @Html.DisplayFor(modelItem => Model.listaCuentas.ElementAt(j).NUMEROCTA)
+                        @Html.Raw(" ")
+                    }
+
+                }
+            </td>
+     
+
+            <td>
+
+                @Html.ActionLink("Edit", "Edit", new{
+                    id =
+                    Model.listaCLIENTES.ElementAt(i).CEDULA
+                }) |
+
+                @Html.ActionLink("Details", "Details", new
+                {
+                    id =
+                    Model.listaCLIENTES.ElementAt(i).CEDULA
+                }) |
+
+                @Html.ActionLink("Delete", "Delete", new
+                {
+                    id =
+                    Model.listaCLIENTES.ElementAt(i).CEDULA
+                })
+            </td>
+        </tr>
+    }
+</table>
